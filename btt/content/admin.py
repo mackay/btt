@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Cause, Organization, EngagementContent
+
+admin.site.register(Cause)
+admin.site.register(Organization)
+admin.site.register(EngagementContent)
