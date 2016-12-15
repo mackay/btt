@@ -6,7 +6,7 @@ from django.utils import timezone
 
 class Campaign(models.Model):
     name = models.CharField(max_length=255)
-    cause = models.ForeignKey('content.models.Cause')
+    cause = models.ForeignKey('content.Cause')
 
     start_date = models.DateTimeField(default=timezone.now)
     end_date = models.DateTimeField()
@@ -22,8 +22,8 @@ class EngagementPurpose(models.Model):
 
 class Engagement(models.Model):
     compaign = models.ForeignKey(Campaign)
-    content = models.ForeignKey('content.models.EngagementContent')
-    tweet = models.ForeignKey('classification.models.Tweet')
+    content = models.ForeignKey('content.EngagementContent')
+    tweet = models.ForeignKey('classification.Tweet')
 
     purpose = models.ForeignKey(EngagementPurpose, null=True, default=None)
 

@@ -44,7 +44,7 @@ class Classification(models.Model):
 
 class ClassificationCause(models.Model):
     classification = models.ForeignKey(Classification)
-    cause = models.ForeignKey('content.models.Cause')
+    cause = models.ForeignKey('content.Cause')
     affinity = models.FloatField(default=0.0)
 
 
