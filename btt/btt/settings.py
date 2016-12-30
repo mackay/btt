@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.10/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
-
+from __future__ import absolute_import
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -32,6 +32,7 @@ APPEND_SLASH = True
 # Application definition
 
 INSTALLED_APPS = [
+    'django_celery_beat',
     'content.apps.ContentConfig',
     'source.apps.SourceConfig',
     'finance.apps.FinanceConfig',
@@ -132,12 +133,18 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
     )
 
-
-
 TITLE = 'BTT'
 DOMAIN = 'local.btt.com'
 
+
+TWITTER_API_CONSUMER_KEY = ""
+TWITTER_API_CONSUMER_SECRET = ""
+
+TWITTER_API_USER_ACCESS_TOKEN = ""
+TWITTER_API_USER_ACCESS_SECRET = ""
+
+
 try:
-    from local_settings import *
+    from .local_settings import *
 except ImportError:
     pass
