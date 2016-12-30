@@ -20,7 +20,7 @@ class Tweet(models.Model):
     date = models.DateTimeField(default=timezone.now)
     url = models.CharField(max_length=255)
     likes = models.IntegerField(default=0)
-    reweets = models.IntegerField(default=0)
+    retweets = models.IntegerField(default=0)
 
     content = models.CharField(max_length=140)
 

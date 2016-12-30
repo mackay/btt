@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 ('created_date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('scheduled_date', models.DateTimeField(default=None, null=True)),
                 ('action_date', models.DateTimeField(default=None, null=True)),
-                ('compaign', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='engagement.Campaign')),
+                ('campaign', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='engagement.Campaign')),
                 ('content', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='content.EngagementContent')),
             ],
         ),

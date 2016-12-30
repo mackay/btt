@@ -21,7 +21,7 @@ class EngagementPurpose(models.Model):
 
 
 class Engagement(models.Model):
-    compaign = models.ForeignKey(Campaign)
+    campaign = models.ForeignKey(Campaign)
     content = models.ForeignKey('content.EngagementContent')
     tweet = models.ForeignKey('classification.Tweet')
 

@@ -6,6 +6,7 @@ from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
 import django.utils.timezone
+from django.contrib.auth.models import User
 
 
 class Migration(migrations.Migration):
@@ -47,5 +48,10 @@ class Migration(migrations.Migration):
                 ('notes', models.TextField(default='')),
                 ('causes', models.ManyToManyField(to='content.Cause')),
             ],
+        ),
+        migrations.AddField(
+            model_name='engagementcontent',
+            name='cause',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='content.Cause'),
         ),
     ]

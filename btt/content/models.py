@@ -26,3 +26,4 @@ class EngagementContent(models.Model):
 
     content = models.CharField(max_length=140)
     resource_url = models.CharField(max_length=255)
+    cause = models.ForeignKey(Cause)

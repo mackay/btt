@@ -25,7 +25,7 @@ SECRET_KEY = 'gxo%3hxtx+1rfpe(eol&h%fi)+9(yoflx&no-^m9vq5%m)(nqa'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ u'local.btt.com' ]
+ALLOWED_HOSTS = [ u'local.btt.com', '127.0.0.1' ]
 
 APPEND_SLASH = True
 
