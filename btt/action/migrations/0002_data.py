@@ -13,9 +13,9 @@ import dateutil.parser
 
 
 def forwards_func(apps, schema_editor):
-    Campaign = apps.get_model("engagement", "Campaign")
-    Engagement = apps.get_model("engagement", "Engagement")
-    EngagementPurpose = apps.get_model("engagement", "EngagementPurpose")
+    Campaign = apps.get_model("action", "Campaign")
+    Engagement = apps.get_model("action", "Engagement")
+    EngagementPurpose = apps.get_model("action", "EngagementPurpose")
 
     db_alias = schema_editor.connection.alias
 
@@ -39,10 +39,10 @@ def forwards_func(apps, schema_editor):
                          cause=cause_civ )
     campaign.save()
 
-    EngagementContent = apps.get_model("content", "EngagementContent")
-    engagement_content = EngagementContent.objects.filter(cause=cause_civ).first()
+    Response = apps.get_model("content", "Response")
+    engagement_response = Response.objects.filter(cause=cause_civ).first()
 
-    Tweet = apps.get_model("classification", "Tweet")
+    Tweet = apps.get_model("source", "Tweet")
 
     # sentiment filters will be <= if campaign sentiment is <0, >= if >0
     # interest and audience filters will be >= if campaign sentiment is >0
@@ -60,7 +60,7 @@ def forwards_func(apps, schema_editor):
     engagement = Engagement( created_date=created_date,
                              scheduled_date=scheduled_date,
                              campaign=campaign,
-                             content=engagement_content,
+                             response=engagement_response,
                              purpose=purposes[0],
                              tweet=tweet)
     engagement.save()
@@ -68,9 +68,9 @@ def forwards_func(apps, schema_editor):
 
 
 def reverse_func(apps, schema_editor):
-    Campaign = apps.get_model("engagement", "Campaign")
-    Engagement = apps.get_model("engagement", "Engagement")
-    EngagementPurpose = apps.get_model("engagement", "EngagementPurpose")
+    Campaign = apps.get_model("action", "Campaign")
+    Engagement = apps.get_model("action", "Engagement")
+    EngagementPurpose = apps.get_model("action", "EngagementPurpose")
 
     db_alias = schema_editor.connection.alias
 
@@ -82,9 +82,9 @@ def reverse_func(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('engagement', '0001_initial'),
+        ('action', '0001_initial'),
         ('content', '0002_data'),
-        ('classification', '0002_data'),
+        ('source', '0002_data'),
     ]
 
     operations = [

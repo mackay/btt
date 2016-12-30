@@ -12,7 +12,7 @@ from django.contrib.auth import get_user_model
 
 def forwards_func(apps, schema_editor):
     Cause = apps.get_model("content", "Cause")
-    EngagementContent = apps.get_model("content", "EngagementContent")
+    Response = apps.get_model("content", "Response")
     Organization = apps.get_model("content", "Organization")
 
     db_alias = schema_editor.connection.alias
@@ -37,10 +37,10 @@ def forwards_func(apps, schema_editor):
     cause_journ = Cause.objects.using(db_alias).filter(name="Journalism").first()
     cause_civ = Cause.objects.using(db_alias).filter(name="Civility").first()
 
-    EngagementContent.objects.using(db_alias).bulk_create([
-        EngagementContent(content="This is an example tweet.", resource_url="google.com", created_by_id=creator.id, cause=cause_women),
-        EngagementContent(content="A second tweet.", resource_url="google.com", created_by_id=creator.id, cause=cause_journ),
-        EngagementContent(content="The final tweet.", resource_url="google.com", created_by_id=creator.id, cause=cause_civ)
+    Response.objects.using(db_alias).bulk_create([
+        Response(content="This is an example tweet.", resource_url="google.com", created_by_id=creator.id, cause=cause_women),
+        Response(content="A second tweet.", resource_url="google.com", created_by_id=creator.id, cause=cause_journ),
+        Response(content="The final tweet.", resource_url="google.com", created_by_id=creator.id, cause=cause_civ)
     ])
 
     Organization.objects.using(db_alias).bulk_create([
@@ -76,13 +76,13 @@ def forwards_func(apps, schema_editor):
 
 def reverse_func(apps, schema_editor):
     Cause = apps.get_model("content", "Cause")
-    EngagementContent = apps.get_model("content", "EngagementContent")
+    Response = apps.get_model("content", "Response")
     Organization = apps.get_model("content", "Organization")
 
     db_alias = schema_editor.connection.alias
 
     Cause.objects.using(db_alias).all().delete()
-    EngagementContent.objects.using(db_alias).all().delete()
+    Response.objects.using(db_alias).all().delete()
     Organization.objects.using(db_alias).all().delete()
 
 

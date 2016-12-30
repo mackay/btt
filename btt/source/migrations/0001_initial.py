@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('affinity', models.FloatField(default=0.0)),
                 ('cause', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='content.Cause')),
-                ('classification', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='classification.Classification')),
+                ('classification', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='source.Classification')),
             ],
         ),
         migrations.CreateModel(
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
                 ('key', models.CharField(max_length=64)),
                 ('text', models.TextField(default='')),
                 ('numeric', models.FloatField(default=0.0)),
-                ('classification', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='classification.Classification')),
+                ('classification', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='source.Classification')),
             ],
         ),
         migrations.CreateModel(
@@ -62,7 +62,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='TwitterAccount',
+            name='Account',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('username', models.CharField(max_length=16)),
@@ -76,11 +76,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='tweet',
             name='account',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='classification.TwitterAccount'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='source.Account'),
         ),
         migrations.AddField(
             model_name='classification',
             name='tweet',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='classification.Tweet'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='source.Tweet'),
         ),
     ]

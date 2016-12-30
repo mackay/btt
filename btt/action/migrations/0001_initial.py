@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('classification', '0001_initial'),
+        ('source', '0001_initial'),
         ('content', '0001_initial'),
     ]
 
@@ -37,8 +37,8 @@ class Migration(migrations.Migration):
                 ('created_date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('scheduled_date', models.DateTimeField(default=None, null=True)),
                 ('action_date', models.DateTimeField(default=None, null=True)),
-                ('campaign', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='engagement.Campaign')),
-                ('content', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='content.EngagementContent')),
+                ('campaign', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='action.Campaign')),
+                ('response', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='content.Response')),
             ],
         ),
         migrations.CreateModel(
@@ -51,11 +51,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='engagement',
             name='purpose',
-            field=models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.CASCADE, to='engagement.EngagementPurpose'),
+            field=models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.CASCADE, to='action.EngagementPurpose'),
         ),
         migrations.AddField(
             model_name='engagement',
             name='tweet',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='classification.Tweet'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='source.Tweet'),
         ),
     ]

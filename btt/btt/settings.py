@@ -33,9 +33,9 @@ APPEND_SLASH = True
 
 INSTALLED_APPS = [
     'content.apps.ContentConfig',
-    'classification.apps.ClassificationConfig',
+    'source.apps.SourceConfig',
     'finance.apps.FinanceConfig',
-    'engagement.apps.EngagementConfig',
+    'action.apps.ActionConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

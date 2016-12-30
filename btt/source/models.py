@@ -4,7 +4,7 @@ from django.db import models
 from django.utils import timezone
 
 
-class TwitterAccount(models.Model):
+class Account(models.Model):
     username = models.CharField(max_length=16)
     name = models.CharField(max_length=255)
 
@@ -16,7 +16,7 @@ class TwitterAccount(models.Model):
 
 
 class Tweet(models.Model):
-    account = models.ForeignKey(TwitterAccount)
+    account = models.ForeignKey(Account)
     date = models.DateTimeField(default=timezone.now)
     url = models.CharField(max_length=255)
     likes = models.IntegerField(default=0)

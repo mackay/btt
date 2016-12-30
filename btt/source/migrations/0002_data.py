@@ -10,16 +10,16 @@ import dateutil.parser
 
 
 def forwards_func(apps, schema_editor):
-    TwitterAccount = apps.get_model("classification", "TwitterAccount")
-    Tweet = apps.get_model("classification", "Tweet")
-    Classification = apps.get_model("classification", "Classification")
-    ClassificationCause = apps.get_model("classification", "ClassificationCause")
+    Account = apps.get_model("source", "Account")
+    Tweet = apps.get_model("source", "Tweet")
+    Classification = apps.get_model("source", "Classification")
+    ClassificationCause = apps.get_model("source", "ClassificationCause")
     # ClassificationMeta = apps.get_model("classification", "ClassificationMeta")
 
     db_alias = schema_editor.connection.alias
 
-    trump = TwitterAccount( username="realDonaldTrump", name="", followers=18151875, following=41 )
-    martin = TwitterAccount( username="MartinShkreli", name="Martin ShkreliVerified account", followers=189268, following=1217 )
+    trump = Account( username="realDonaldTrump", name="Donald J Trump", followers=18151875, following=41 )
+    martin = Account( username="MartinShkreli", name="Martin Shkreli", followers=189268, following=1217 )
 
     trump.save()
     martin.save()
@@ -101,15 +101,15 @@ def forwards_func(apps, schema_editor):
 
 
 def reverse_func(apps, schema_editor):
-    TwitterAccount = apps.get_model("classification", "TwitterAccount")
-    Tweet = apps.get_model("classification", "Tweet")
-    Classification = apps.get_model("classification", "Classification")
-    ClassificationCause = apps.get_model("classification", "ClassificationCause")
-    ClassificationMeta = apps.get_model("classification", "ClassificationMeta")
+    Account = apps.get_model("source", "TwitterAccount")
+    Tweet = apps.get_model("source", "Tweet")
+    Classification = apps.get_model("source", "Classification")
+    ClassificationCause = apps.get_model("source", "ClassificationCause")
+    ClassificationMeta = apps.get_model("source", "ClassificationMeta")
 
     db_alias = schema_editor.connection.alias
 
-    TwitterAccount.objects.using(db_alias).all().delete()
+    Account.objects.using(db_alias).all().delete()
     Tweet.objects.using(db_alias).all().delete()
     Classification.objects.using(db_alias).all().delete()
     ClassificationCause.objects.using(db_alias).all().delete()
@@ -119,7 +119,7 @@ def reverse_func(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('classification', '0001_initial'),
+        ('source', '0001_initial'),
         ('content', '0002_data'),
     ]
 

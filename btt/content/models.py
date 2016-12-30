@@ -20,7 +20,7 @@ class Organization(models.Model):
     causes = models.ManyToManyField(Cause)
 
 
-class EngagementContent(models.Model):
+class Response(models.Model):
     created_by = models.ForeignKey(User)
     last_updated = models.DateTimeField(default=timezone.now)
 

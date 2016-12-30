@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import Cause, Organization, EngagementContent
+from .models import Cause, Organization, Response
 
 admin.site.register(Cause)
 admin.site.register(Organization)
-admin.site.register(EngagementContent)
+admin.site.register(Response)

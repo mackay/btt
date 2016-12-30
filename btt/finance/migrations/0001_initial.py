@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('engagement', '0001_initial'),
+        ('action', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('content', '0001_initial'),
     ]
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('amount', models.DecimalField(decimal_places=2, max_digits=11)),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
-                ('engagement', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='engagement.Engagement')),
+                ('engagement', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='action.Engagement')),
                 ('organization', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='content.Organization')),
             ],
         ),

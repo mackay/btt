@@ -35,7 +35,7 @@ class CommitmentAllocation(models.Model):
 
 class Donation(models.Model):
     organization = models.ForeignKey('content.Organization')
-    engagement = models.ForeignKey('engagement.Engagement')
+    engagement = models.ForeignKey('action.Engagement')
     pool = models.ForeignKey(DonationPool)
 
     amount = models.DecimalField(max_digits=11, decimal_places=2)

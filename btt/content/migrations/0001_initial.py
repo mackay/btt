@@ -6,7 +6,6 @@ from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
 import django.utils.timezone
-from django.contrib.auth.models import User
 
 
 class Migration(migrations.Migration):
@@ -15,6 +14,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('auth', '__latest__'),
     ]
 
     operations = [
@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='EngagementContent',
+            name='Response',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('last_updated', models.DateTimeField(default=django.utils.timezone.now)),
@@ -50,7 +50,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.AddField(
-            model_name='engagementcontent',
+            model_name='response',
             name='cause',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='content.Cause'),
         ),
