@@ -25,8 +25,9 @@ SECRET_KEY = 'gxo%3hxtx+1rfpe(eol&h%fi)+9(yoflx&no-^m9vq5%m)(nqa'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ u'local.btt.com' ]
 
+APPEND_SLASH = True
 
 # Application definition
 
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'annoying'  # sudo pip install django-annoying
 ]
 
 MIDDLEWARE = [
@@ -122,6 +124,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(
+        os.path.dirname(__file__),
+        'static',
+        ),
+    os.path.join(BASE_DIR, "static"),
+    )
+
+
+
+TITLE = 'BTT'
+DOMAIN = 'local.btt.com'
 
 try:
     from local_settings import *
