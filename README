@@ -1,0 +1,142 @@
+README
+
+
+Getting Started
+-------------------------
+(1) Suggested structure as follows below, pull repo down to the 'tweet.git' folder
+
+	my_project_folder/
+		tweet.git/
+			[all the stuff from the git repo]
+
+(2) Install RabbitMQ
+	http://docs.celeryproject.org/en/latest/getting-started/brokers/rabbitmq.html
+
+(3) Create a new virtualenv
+	http://docs.python-guide.org/en/latest/dev/virtualenvs/
+
+	Create a virtual environment for a project:
+		$ cd my_project_folder
+		$ virtualenv venv
+
+	To begin using the virtual environment, it needs to be activated:
+		$ source venv/bin/activate
+
+	Install requirements
+		pip install -r ./tweet.git/requirements.txt
+
+(4) Continue without changes to use an sqlite database for persistence
+	** or **
+	If you want to use mysql (as an example), create a new schema called 'btt'.
+
+	Then, create a file 'my_project_folder/tweet.git/btt/btt/local_settings.py'
+
+	Finally, put this in it to use the new mysql schema, and adjust with the
+	correct host, users, etc:
+
+		DATABASES = {
+		    'default': {
+		        'ENGINE': 'django.db.backends.mysql',
+		        'NAME': 'btt',
+		        'USER': 'root',
+		        'PASSWORD': '',
+		        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+		        'PORT': '3306',
+		    }
+		}
+
+(5) Create the initial data by running the data migrations
+	** you should be in my_project_folder with venv active **
+
+	$ cd tweet.git
+	$ cd btt
+	$ python ./manage.py migrate
+
+(6) Start the server
+	$ python ./manage.py runserver
+
+(7) You'll want the Celery tasks queues to function, so in another terminal...
+		$ cd my_project_folder
+		$ source venv/bin/activate
+		$ cd tweet.git
+		$ cd btt
+		$ celery -A btt worker -l info
+
+(8) You'll want the Celery beat manager to function, so in yet another terminal...
+		$ cd my_project_folder
+		$ source venv/bin/activate
+		$ cd tweet.git
+		$ cd btt
+		$ celery -A btt beat -l info -S django
+
+(9) Navigate to http://127.0.0.1:8000/admin/
+
+(10) Login with user: btt, pass: btt
+
+(11) If you want to start using the twitter api via tweepy, you'll want to
+	create the file 'my_project_folder/tweet.git/btt/btt/local_settings.py' if
+	you haven't already, and add the following to it:
+
+
+	TWITTER_API_CONSUMER_KEY = "[your info ]"
+	TWITTER_API_CONSUMER_SECRET = "[ your info ]"
+
+	TWITTER_API_USER_ACCESS_TOKEN = "[your info ]"
+	TWITTER_API_USER_ACCESS_SECRET = "[your info ]"
+
+
+
+
+Server-side Activities
+-------------------------
+Two types of action need to take place regardless of users' web interaction:
+	* Source tweet information
+		- gathering tweets
+		- classification of tweets
+	* Engagement of twitter users
+		- positive (reinforcement)
+		- negative (disincentive) tone
+		- direct engagement (to the originator)
+		- follower engagement (to their audience)
+
+Stubs for these actions are in process.py files for both 'action' and 'source'
+apps.  These are only suggestive placeholders.
+
+
+
+
+Tasks and Scheduling
+-------------------------
+Celery has been added to support asynchronous tasks and task scheduling.  Tasks
+are placed in tasks.py files for both 'action' and 'source' apps.  Example cron
+entries are generated with the initial data migrations.
+
+BUG: there is a known bug in the Celery beat manager backend - it will not
+automatically reload tasks upon any task change.  The beat manager must be
+restarted.
+
+https://github.com/celery/django-celery-beat/issues/7
+
+
+
+Twitter
+-------------------------
+Included in the requirements.txt is tweepy
+
+http://tweepy.readthedocs.io/en/v3.5.0/
+
+To search for tweets, use the API.search method
+http://tweepy.readthedocs.io/en/v3.5.0/api.html#API.search
+
+To get an account and their tweets, use the API.user_timeline method
+http://tweepy.readthedocs.io/en/v3.5.0/api.html#API.user_timeline
+
+Note no condition is available to limit the tweets to after a given date, the
+mechanism used by this api is after a given ID number.
+
+A wrapper to automatically use the settings.py (using local_settings.py) data
+is given in btt/btt/twitter.py as TwitterAPIWrapper
+
+The classes in process.py for both the action and source apps use this wrapper
+as a convenience to get an authenticated reference to the Twitter API.
+
